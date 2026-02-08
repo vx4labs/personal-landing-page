@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snoopy - Personal Page</title>
+    <style>
+        /* CSS SETUP UTAMA */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body {
+            background-image: url('bg1.jpg'); 
+            background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;
+            height: 100vh; display: flex; align-items: center; justify-content: center; color: #fff;
+        }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1; }
+        .container {
+            position: relative; z-index: 2; background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15); padding: 40px; border-radius: 24px;
+            text-align: center; width: 90%; max-width: 420px; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+        .profile-pic {
+            width: 120px; height: 120px; border-radius: 50%; object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.8); margin-bottom: 20px; box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+        h1 { font-size: 2rem; margin-bottom: 5px; letter-spacing: 1.5px; font-weight: 700; }
+        p.subtitle { font-size: 0.95rem; color: #ccc; margin-bottom: 35px; font-weight: 300; }
+        .btn-group { display: flex; flex-direction: column; gap: 15px; }
+        .btn {
+            display: flex; justify-content: center; align-items: center; padding: 14px 20px;
+            border-radius: 12px; text-decoration: none; color: white; font-weight: 600; font-size: 1rem;
+            background: transparent; border: 2px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); cursor: pointer; position: relative; 
+        }
+        .btn:hover { background: rgba(255, 255, 255, 0.1); border-color: #fff; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255,255,255,0.1); }
+        .btn-icon-left { width: 22px; height: 22px; object-fit: contain; position: absolute; left: 20px; filter: brightness(0) invert(1); }
+        .btn-indicator { position: absolute; right: 20px; font-size: 0.85rem; font-weight: 400; opacity: 0.6; }
+        @media (max-width: 380px) { .btn-icon-left { position: static; margin-right: 10px; } .btn-indicator { display: none; } }
+        .footer-est { margin-top: 30px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.4); letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
+        
+        /* MODAL STYLES */
+        .modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
+        .modal-content { background: #151515; padding: 35px; border-radius: 20px; width: 90%; max-width: 500px; position: relative; text-align: left; border: 1px solid #333; color: #ddd; animation: zoomIn 0.3s ease-out; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
+        .email-link { color: #fff; text-decoration: none; border-bottom: 1px dotted #888; transition: 0.3s; }
+        .email-link:hover { color: #4da6ff; border-bottom: 1px solid #4da6ff; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; font-weight: 300; color: #777; cursor: pointer; transition: 0.3s; }
+        .close-btn:hover { color: #fff; transform: rotate(90deg); }
+        @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="container">
+        <img src="profile1.jpeg" alt="Snoopy" class="profile-pic">
+        <h1>Snoopy</h1>
+        <p class="subtitle">Cloud Computing Enthusiast & Tech Learner</p>
+
+        <div class="btn-group">
+            <a href="https://github.com/vx4labs" target="_blank" class="btn">
+                <img src="githublogo.png" class="btn-icon-left" alt="icon">Visit GitHub<span class="btn-indicator">↗</span>
+            </a>
+            <a href="https://www.freelancer.com/u/VXLabs4?frm=VXLabs4&sb=t" target="_blank" class="btn">
+                <img src="briefcase.png" class="btn-icon-left" alt="icon">Freelancer Profile<span class="btn-indicator">↗</span>
+            </a>
+            <button onclick="openModal('modalAbout')" class="btn">
+                <img src="user.png" class="btn-icon-left" alt="icon">About Me
+            </button>
+            <button onclick="openModal('modalContact')" class="btn">
+                <img src="new-post.png" class="btn-icon-left" alt="icon">Contact Info
+            </button>
+        </div>
+        <p class="footer-est">Est. 2026</p>
+    </div>
+
+    <div id="modalAbout" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modalAbout')">&times;</span>
+            <h2 style="margin-bottom: 20px; color:white; font-size:1.5rem;">About Me</h2>
+            <p style="margin-bottom: 15px; line-height: 1.6;">I am an Informatics student and tech enthusiast with a relentless drive to learn. Currently, I am deep-diving into Cloud Computing, dedicating my time to mastering modern infrastructure and cloud technologies. My goal is simple: to turn my technical curiosity into scalable, real-world solutions.</p>
+            <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+            <p style="line-height: 1.6; color: #bbb;">Saya adalah mahasiswa Informatika dan tech enthusiast yang memiliki dorongan kuat untuk terus berkembang. Saat ini, saya sedang fokus grinding dan mendalami Cloud Computing secara intensif. Tujuan saya sederhana: mengasah keahlian teknis untuk membangun infrastruktur digital yang handal dan bernilai nyata.</p>
+        </div>
+    </div>
+
+    <div id="modalContact" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modalContact')">&times;</span>
+            <h2 style="margin-bottom: 20px; color:white; font-size:1.5rem;">Contact Info</h2>
+            <p style="margin-bottom: 10px; font-size: 1.1rem;">Email: <a href="mailto:vxexitosacomp@gmail.com" class="email-link">vxexitosacomp@gmail.com</a></p>
+            <br><small style="color:#666;">Feel free to reach out for collaboration!</small>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) { document.getElementById(modalId).style.display = "flex"; }
+        function closeModal(modalId) { document.getElementById(modalId).style.display = "none"; }
+        window.onclick = function(event) { if (event.target.classList.contains('modal')) { event.target.style.display = "none"; } }
+    </script>
+
+    <div id="market-widget" class="glass-widget">
+        
+        <div id="summary-popup" class="summary-popup">
+            <div class="summary-title">Performance Summary</div>
+            <div id="summary-content" class="summary-grid">
+                </div>
+            <div style="text-align:center; margin-top:8px; font-size:9px; color:#555; cursor:pointer;" onclick="toggleSummary()">[ Close ]</div>
+        </div>
+
+        <div class="widget-header">
+            <span id="widget-date" onclick="toggleSummary()" title="Click for Summary">Loading...</span>
+            <div class="widget-nav">
+                <button onclick="changeDay(-1)">❮</button>
+                <button onclick="changeDay(1)">❯</button>
+            </div>
+        </div>
+        
+        <div id="ticker-list" class="ticker-list"></div>
+        
+        <div class="widget-footer">Powered by AWS Lambda & DynamoDB</div>
+    </div>
+
+    <style>
+        /* Style Widget Kaca */
+        .glass-widget {
+            position: fixed; bottom: 20px; right: 20px; width: 300px;
+            background: rgba(20, 20, 20, 0.85); 
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px; padding: 15px; color: white; font-family: sans-serif;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 9999;
+            transition: transform 0.3s ease;
+        }
+        .glass-widget:hover { transform: translateY(-5px); }
+
+        .widget-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 13px; color: #ccc; letter-spacing: 1px; }
+        
+        /* Cursor Pointer buat tanggal */
+        #widget-date { cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 4px; }
+        #widget-date:hover { color: #fff; }
+
+        .widget-nav button { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 4px; cursor: pointer; padding: 2px 8px; }
+        .widget-nav button:hover { background: rgba(255,255,255,0.2); }
+
+        /* LIST ITEM & LAYOUT BARU */
+        .ticker-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .ticker-item:last-child { border-bottom: none; margin-bottom: 0; }
+
+        .ticker-info { display: flex; flex-direction: column; }
+        .t-name { font-weight: bold; font-size: 14px; }
+        .t-curr { font-size: 10px; color: #888; }
+
+        .price-data { display: flex; flex-direction: column; align-items: flex-end; }
+        
+        /* Baris Rapi untuk Label & Value */
+        .row-compact { display: flex; align-items: center; justify-content: flex-end; font-size: 11px; margin-bottom: 2px; }
+        .lbl-text { color: #888; margin-right: 6px; font-size: 10px; width: 40px; text-align: right; }
+        .val-text { font-weight: 500; color: #eee; }
+
+        /* Pil Persen */
+        .pill-labeled { font-size: 9px; padding: 2px 6px; border-radius: 4px; font-weight: bold; margin-left: 0; }
+        .green { color: #4ade80; background: rgba(74, 222, 128, 0.1); }
+        .red { color: #f87171; background: rgba(248, 113, 113, 0.1); }
+        .grey { color: #94a3b8; }
+
+        .widget-footer { margin-top: 10px; text-align: center; font-size: 9px; color: #555; }
+
+        /* POPUP SUMMARY STYLES */
+        .summary-popup {
+            position: absolute; bottom: 100%; left: 0; right: 0;
+            background: rgba(15, 15, 15, 0.95); border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(20px); border-radius: 12px; padding: 15px;
+            margin-bottom: 10px; display: none; opacity: 0; transition: opacity 0.3s ease;
+            z-index: 10000; box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+        }
+        .summary-popup.active { display: block; opacity: 1; }
+        .summary-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 8px; border-bottom: 1px solid #333; padding-bottom: 5px; text-align: center; }
+        .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .sum-item { text-align: center; background: rgba(255,255,255,0.03); padding: 5px; border-radius: 6px; }
+        .sum-lbl { font-size: 9px; color: #666; display: block; }
+        .sum-val { font-size: 11px; font-weight: bold; }
+
+        @media (max-width: 600px) {
+            .glass-widget { left: 50%; transform: translateX(-50%); bottom: 10px; width: 90%; }
+            .glass-widget:hover { transform: translateX(-50%) translateY(-5px); }
+        }
+    </style>
+
+    <script>
+        const API_URL = "https://vjfkwnujpf.execute-api.ap-southeast-1.amazonaws.com/market"; 
+
+        let marketData = [];
+        let currentIndex = 0;
+
+        async function fetchMarket() {
+            try {
+                document.getElementById('widget-date').innerText = "Connecting...";
+                const res = await fetch(API_URL);
+                const data = await res.json();
+                marketData = data; 
+                currentIndex = marketData.length - 1; 
+                renderWidget();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('widget-date').innerText = "Offline";
+            }
+        }
+
+        function renderWidget() {
+        if (!marketData.length) return;
+        const day = marketData[currentIndex];
+
+        // Update Tanggal
+        const d = new Date(day.date);
+        document.getElementById('widget-date').innerText = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+
+        const list = document.getElementById('ticker-list');
+        list.innerHTML = '';
+
+        day.tickers.forEach(t => {
+            let name = t.name.replace('GC=F', 'GOLD').split('.')[0];
+            const fmt = (n) => n.toLocaleString('en-US', {maximumFractionDigits: 0});
+            
+            // --- LOGIC ANTI-NOL (SMART FALLBACK) ---
+            // Ini biar kalau pagi-pagi (Close masih 0), dia gak nampilin angka 0.
+            
+            let displayPrice = t.close;     // Default: Harga Close
+            let displayPct = t.pct_close;   // Default: Persen Close
+            let priceLabel = "Close";       // Default: Label Close
+
+            // Kalo Close masih 0 (Market Jalan/Pagi), kita pinjem Open
+            if (t.close === 0 && t.open > 0) {
+                displayPrice = t.open; 
+                priceLabel = "Open";   // Ganti label jadi Open biar jujur
+                
+                // Hitung manual persen sementara (Open Hari Ini vs Close Kemarin)
+                if (currentIndex > 0) {
+                    let prevDay = marketData[currentIndex - 1];
+                    let prevTicker = prevDay.tickers.find(x => x.name === t.name || x.name.includes(name));
+                    
+                    if (prevTicker && prevTicker.close > 0) {
+                        let manualPct = ((t.open - prevTicker.close) / prevTicker.close) * 100;
+                        displayPct = parseFloat(manualPct.toFixed(2));
+                    }
+                }
+            }
+            // -------------------------------------
+
+            const getCls = (p) => p > 0 ? 'green' : (p < 0 ? 'red' : 'grey');
+            const getSign = (p) => p > 0 ? '+' : '';
+
+            list.innerHTML += `
+            <div class="ticker-item">
+                <div class="ticker-info">
+                    <span class="t-name">${name}</span>
+                    <span class="t-curr">${t.currency}</span>
+                </div>
+
+                <div class="price-data">
+                    <div class="row-compact">
+                        <span class="lbl-text">Open:</span>
+                        <span class="val-text">${fmt(t.open)}</span>
+                    </div>
+
+                    <div class="row-compact">
+                        <span class="lbl-text">${priceLabel}:</span>
+                        <span class="val-text">${fmt(displayPrice)}</span>
+                    </div>
+
+                    <div class="row-compact" style="margin-top:2px">
+                        <span class="lbl-text" style="font-size:9px; width:auto; margin-right:4px;">Yesterday</span>
+                        <span class="pill-labeled ${getCls(displayPct)}">
+                            ${getSign(displayPct)}${displayPct}%
+                        </span>
+                    </div>
+                </div>
+            </div>`;
+        });
+    }
+
+        // --- LOGIC POPUP SUMMARY ---
+        function toggleSummary() {
+            const popup = document.getElementById('summary-popup');
+            const content = document.getElementById('summary-content');
+            if (!popup.classList.contains('active')) {
+                calculatePerformance(content);
+            }
+            popup.classList.toggle('active');
+        }
+
+        function calculatePerformance(container) {
+            if (!marketData.length) return;
+            const todayData = marketData[marketData.length - 1]; 
+            let html = "";
+            
+            todayData.tickers.forEach(t => {
+                let name = t.name.replace('GC=F', 'GOLD').split('.')[0];
+                let currentPrice = t.close;
+
+                // Fungsi cari harga masa lalu
+                const getPastPrice = (daysAgo) => {
+                    let idx = marketData.length - 1 - daysAgo;
+                    if (idx >= 0) {
+                        let pastDay = marketData[idx];
+                        let pastTicker = pastDay.tickers.find(x => x.name === t.name);
+                        return pastTicker ? pastTicker.close : null;
+                    }
+                    return null;
+                };
+
+                let p7 = getPastPrice(7); // 1 Minggu
+                let change7 = p7 ? ((currentPrice - p7)/p7)*100 : null;
+                
+                let p30 = getPastPrice(30); // 1 Bulan (Data blm ada, bakal null)
+                let change30 = p30 ? ((currentPrice - p30)/p30)*100 : null;
+
+                const renderP = (val) => val !== null ? 
+                    `<span style="color:${val>=0?'#4ade80':'#f87171'}">${val>0?'+':''}${val.toFixed(1)}%</span>` : 
+                    `<span style="color:#666">-</span>`;
+
+                html += `
+                    <div class="sum-item" style="grid-column: span 2; display:flex; justify-content:space-between; margin-top:5px; background:transparent; border-bottom:1px solid #333; padding-bottom:2px;">
+                        <span style="font-weight:bold; font-size:10px; color:#fff">${name}</span>
+                    </div>
+                    <div class="sum-item">
+                        <span class="sum-lbl">1 Week</span>
+                        <span class="sum-val">${renderP(change7)}</span>
+                    </div>
+                    <div class="sum-item">
+                        <span class="sum-lbl">1 Month</span>
+                        <span class="sum-val">${renderP(change30)}</span>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function changeDay(dir) {
+            let next = currentIndex + dir;
+            if (next >= 0 && next < marketData.length) {
+                currentIndex = next;
+                renderWidget();
+            }
+        }
+
+        fetchMarket();
+    </script>
+
+</body>
+</html>
